@@ -8,35 +8,26 @@ const AppProvider = ({ children }) => {
 
     const increment = (id) => {
         if (id === "break-increment") {
-            setBreakLength((prev) => prev + 1);
-        }
-        if (id === "session-increment") {
-            setSessionLength((prev) => prev + 1);
+            if (breakLength <= 60) {
+                setBreakLength((prev) => prev + 1);
+            }
+        } else if (id === "session-increment") {
+            if (sessionLength < 60) {
+                setSessionLength((prev) => prev + 1);
+            }
         }
     };
     const decrement = (id) => {
         if (id === "break-decrement") {
-            setBreakLength((prev) => prev - 1);
-        }
-        if (id === "session-decrement") {
-            setSessionLength((prev) => prev - 1);
+            if (breakLength > 0) {
+                setBreakLength((prev) => prev - 1);
+            }
+        } else if (id === "session-decrement") {
+            if (sessionLength > 0) {
+                setSessionLength((prev) => prev - 1);
+            }
         }
     };
-
-    // const handleBreakLengthChange = (e) => {
-    //     if (e.currentTarget.value === "+") {
-    //         setBreakLength((prev) => prev + 1);
-    //     } else if (e.currentTarget.value === "-") {
-    //         setBreakLength((prev) => prev - 1);
-    //     }
-    // };
-    // const handleSessionLengthChange = (e) => {
-    //     if (e.currentTarget.value === "+") {
-    //         setSessionLength((prev) => prev + 1);
-    //     } else if (e.currentTarget.value === "-") {
-    //         setSessionLength((prev) => prev - 1);
-    //     }
-    // };
 
     return (
         <AppContext.Provider
