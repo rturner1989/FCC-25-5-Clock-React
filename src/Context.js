@@ -5,6 +5,8 @@ const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
     const [breakLength, setBreakLength] = useState(5);
     const [sessionLength, setSessionLength] = useState(25);
+    const [timer, setTimer] = useState();
+    const [startStop, setStartStop] = useState(false);
 
     const increment = (id) => {
         if (id === "break-increment") {
@@ -29,15 +31,47 @@ const AppProvider = ({ children }) => {
         }
     };
 
+    const handleStartStop = () => {
+        setStartStop(!startStop);
+    };
+
+    const clockify = () => {
+        let minutes = Math.floor(timer / 60);
+        let seconds = timer - minutes * 60;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        return minutes + ":" + seconds;
+    };
+
+    useEffect(() => {
+        if (startStop) {
+            const time =
+                timer > 0 &&
+                setInterval(() => {
+                    setTimer((timer) => timer - 1);
+                }, 1000);
+            return () => {
+                clearInterval(time);
+            };
+        }
+    }, [handleStartStop]);
+
+    useEffect(() => {
+        setTimer(sessionLength * 60);
+    }, [breakLength, sessionLength]);
+
     return (
         <AppContext.Provider
             value={{
                 breakLength,
                 sessionLength,
+                timer,
                 setBreakLength,
                 setSessionLength,
                 increment,
                 decrement,
+                clockify,
+                handleStartStop,
             }}
         >
             {children}

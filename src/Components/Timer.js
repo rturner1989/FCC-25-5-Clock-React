@@ -1,11 +1,13 @@
 import React from "react";
+import { useGlobalContext } from "../Context";
 import TimerControl from "./TimerControl";
 
 const Timer = () => {
+    const { clockify } = useGlobalContext();
     return (
         <div id="timer-container">
-            <p id="timer-label">Session</p>
-            <p id="time-left">00:00</p>
+            <h3 id="timer-label">Session</h3>
+            <p id="time-left">{clockify()}</p>
             <TimerControl />
         </div>
     );
