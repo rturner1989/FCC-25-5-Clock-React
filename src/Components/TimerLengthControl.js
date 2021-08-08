@@ -1,5 +1,6 @@
 import React from "react";
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
+import { useGlobalContext } from "../Context";
 
 const TimerLengthControl = ({
     titleId,
@@ -8,21 +9,29 @@ const TimerLengthControl = ({
     decId,
     lengthId,
     length,
-    onClick,
 }) => {
+    const { decrement, increment } = useGlobalContext();
     return (
         <div className="length-controller">
-            <div className="length-title" id={titleId}>
+            <h3 className="length-title" id={titleId}>
                 {title}
-            </div>
-            <div className="btn-container">
-                <button className="btn-child" id={decId} value="-">
+            </h3>
+            <div className="decinc-btn-container">
+                <button
+                    className="decinc-btn-child"
+                    id={decId}
+                    onClick={() => decrement(decId)}
+                >
                     <FaArrowDown />
                 </button>
-                <p className="btn-child" id={lengthId}>
+                <p className="decinc-btn-child" id={lengthId}>
                     {length}
                 </p>
-                <button className="btn-child" id={incId}>
+                <button
+                    className="decinc-btn-child"
+                    id={incId}
+                    onClick={() => increment(incId)}
+                >
                     <FaArrowUp />
                 </button>
             </div>

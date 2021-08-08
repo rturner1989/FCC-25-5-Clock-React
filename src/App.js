@@ -4,8 +4,7 @@ import TimerLengthControl from "./Components/TimerLengthControl";
 import Timer from "./Components/Timer";
 
 const App = () => {
-    const { breakLength, sessionLength, setBreakLength, setSessionLength } =
-        useGlobalContext();
+    const { breakLength, sessionLength } = useGlobalContext();
     return (
         <div id="app-container">
             <h1>25 + 5 Clock</h1>
@@ -17,7 +16,6 @@ const App = () => {
                     decId="break-decrement"
                     lengthId="break-length"
                     length={breakLength}
-                    onClick={setBreakLength}
                 />
                 <TimerLengthControl
                     titleId="session-label"
@@ -26,7 +24,6 @@ const App = () => {
                     decId="session-decrement"
                     lengthId="session-length"
                     length={sessionLength}
-                    onClick={setSessionLength}
                 />
             </section>
             <Timer />
