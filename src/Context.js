@@ -51,24 +51,25 @@ const AppProvider = ({ children }) => {
         setStartStop(false);
         setBreakLength(5);
         setSessionLength(25);
+        setTimer(sessionLength * 60);
     };
 
     useEffect(() => {
-        if (startStop) {
-            const time =
-                timer > 0 &&
-                setInterval(() => {
-                    setTimer((timer) => timer - 1);
-                }, 1000);
+        if (startStop && timer > 0) {
+            const time = setInterval(() => {
+                setTimer((timer) => timer - 1);
+            }, 1000);
             return () => {
                 clearInterval(time);
             };
+        } else if (startStop && timer === 0) {
+            setTimer(breakLength * 60);
         }
-    }, [handleStartStop]);
+    }, [timer, startStop]);
 
     useEffect(() => {
         setTimer(sessionLength * 60);
-    }, [breakLength, sessionLength]);
+    }, [sessionLength]);
 
     return (
         <AppContext.Provider
