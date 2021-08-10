@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from "react";
-import { CgPlayButtonR, CgPlayPauseR } from "react-icons/cg";
 
 const AppContext = React.createContext();
 
@@ -37,49 +36,50 @@ const AppProvider = ({ children }) => {
         }
     };
 
-    const toggle = () => {
-        if (startStop) {
-            return <CgPlayPauseR aria-hidden={true} focusable={false} />;
-        } else {
-            return <CgPlayButtonR aria-hidden={true} focusable={false} />;
-        }
-    };
-
     const handleStartStop = () => {
-        setStartStop(!startStop);
+        if (startStop) {
+            setStartStop(false);
+        } else {
+            setStartStop(true);
+            // setSessionTimer((timer) => timer - 1);
+        }
     };
 
     const reset = () => {
         setStartStop(false);
         setBreakLength(5);
         setSessionLength(25);
-        setSessionTimer(sessionLength * 600);
+        setSessionTimer(sessionLength * 60);
     };
 
     useEffect(() => {
         if (startStop) {
             let time = null;
-            if (sessionTimer > 0) {
-                time = setInterval(() => {
+            if (sessionTimer >= 0) {
+                time = setTimeout(() => {
                     setSessionTimer((timer) => timer - 1);
-                }, 100);
-            } else if (breakTimer === 0) {
-                setSessionTimer(sessionLength * 600);
-                setBreakTimer(breakLength * 600);
-            } else if (sessionTimer === 0) {
-                time = setInterval(() => {
+                    breakTimer <= 0 && setBreakTimer(breakLength * 60);
+                }, 1000);
+            } else if (breakTimer >= 0) {
+                time = setTimeout(() => {
                     setBreakTimer((timer) => timer - 1);
-                }, 100);
+                }, 1000);
+            } else {
+                setSessionTimer(sessionLength * 60);
             }
+            // } else {
+            //     setSessionTimer(sessionLength * 60);
+            //     setBreakTimer(breakLength * 60);
+            // }
             return () => {
-                clearInterval(time);
+                clearTimeout(time);
             };
         }
     }, [breakTimer, sessionTimer, startStop]);
 
     useEffect(() => {
-        setSessionTimer(sessionLength * 600);
-        setBreakTimer(breakLength * 600);
+        setSessionTimer(sessionLength * 60);
+        setBreakTimer(breakLength * 60);
     }, [breakLength, sessionLength]);
 
     return (
@@ -95,7 +95,6 @@ const AppProvider = ({ children }) => {
                 decrement,
                 handleStartStop,
                 reset,
-                toggle,
             }}
         >
             {children}

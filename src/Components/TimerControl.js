@@ -1,16 +1,11 @@
 import React, { useRef, useEffect } from "react";
 import { useGlobalContext } from "../Context";
 import { BsArrowRepeat } from "react-icons/bs";
+import { CgPlayButtonR, CgPlayPauseR } from "react-icons/cg";
 
 const TimerControl = () => {
-    const {
-        handleStartStop,
-        reset,
-        toggle,
-        sessionTimer,
-        breakTimer,
-        startStop,
-    } = useGlobalContext();
+    const { handleStartStop, reset, sessionTimer, breakTimer, startStop } =
+        useGlobalContext();
 
     const audioRef = useRef(null);
 
@@ -25,7 +20,11 @@ const TimerControl = () => {
         <div>
             <button id="start_stop" onClick={handleStartStop}>
                 <span className="label-hidden">Start/Stop</span>
-                {toggle()}
+                {startStop ? (
+                    <CgPlayPauseR aria-hidden={true} focusable={false} />
+                ) : (
+                    <CgPlayButtonR aria-hidden={true} focusable={false} />
+                )}
             </button>
             <button
                 id="reset"
