@@ -5,7 +5,8 @@ const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
     const [breakLength, setBreakLength] = useState(5);
     const [sessionLength, setSessionLength] = useState(25);
-    const [timer, setTimer] = useState();
+    const [breakTimer, setBreakTimer] = useState();
+    const [sessionTimer, setSessionTimer] = useState();
     const [startStop, setStartStop] = useState(false);
 
     const increment = (id) => {
@@ -40,6 +41,7 @@ const AppProvider = ({ children }) => {
     };
 
     const clockify = () => {
+        const timer = sessionTimer > 0 ? sessionTimer : breakTimer;
         let minutes = Math.floor(timer / 60);
         let seconds = timer - minutes * 60;
         seconds = seconds < 10 ? "0" + seconds : seconds;
@@ -47,41 +49,57 @@ const AppProvider = ({ children }) => {
         return minutes + ":" + seconds;
     };
 
+    const label = () => {
+        return sessionTimer > 0 ? "session" : "break";
+    };
+
     const reset = () => {
         setStartStop(false);
         setBreakLength(5);
         setSessionLength(25);
-        setTimer(sessionLength * 60);
+        setSessionTimer(sessionLength * 60);
     };
 
     useEffect(() => {
-        if (startStop && timer > 0) {
-            const time = setInterval(() => {
-                setTimer((timer) => timer - 1);
-            }, 1000);
-            return () => {
-                clearInterval(time);
-            };
-        } else if (startStop && timer === 0) {
-            setTimer(breakLength * 60);
+        if (startStop) {
+            if (sessionTimer > 0) {
+                const time = setInterval(() => {
+                    setSessionTimer((timer) => timer - 1);
+                }, 1000);
+                return () => {
+                    clearInterval(time);
+                };
+            } else if (breakTimer === 0) {
+                setSessionTimer(sessionLength * 60);
+                setBreakTimer(breakLength * 60);
+            } else if (sessionTimer === 0) {
+                const time = setInterval(() => {
+                    setBreakTimer((timer) => timer - 1);
+                }, 1000);
+                return () => {
+                    clearInterval(time);
+                };
+            }
         }
-    }, [timer, startStop]);
+    }, [breakTimer, sessionTimer, startStop]);
 
     useEffect(() => {
-        setTimer(sessionLength * 60);
-    }, [sessionLength]);
+        setSessionTimer(sessionLength * 60);
+        setBreakTimer(breakLength * 60);
+    }, [breakLength, sessionLength]);
 
     return (
         <AppContext.Provider
             value={{
                 breakLength,
                 sessionLength,
-                timer,
+                sessionTimer,
                 setBreakLength,
                 setSessionLength,
                 increment,
                 decrement,
                 clockify,
+                label,
                 handleStartStop,
                 reset,
             }}
