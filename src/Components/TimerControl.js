@@ -21,13 +21,6 @@ const TimerControl = () => {
         }
     }, [sessionTimer, breakTimer]);
 
-    // useEffect(() => {
-    //     if (!startStop) {
-    //         audioRef.current.pause();
-    //         audioRef.current.currentTime = 0;
-    //     }
-    // }, [startStop]);
-
     return (
         <div>
             <button id="start_stop" onClick={handleStartStop}>
