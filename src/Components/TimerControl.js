@@ -2,13 +2,15 @@ import React from "react";
 import { useGlobalContext } from "../Context";
 
 const TimerControl = () => {
-    const { handleStartStop } = useGlobalContext();
+    const { handleStartStop, reset } = useGlobalContext();
     return (
         <div>
             <button id="start_stop" onClick={handleStartStop}>
                 Start/Stop
             </button>
-            <button id="reset">Reset</button>
+            <button id="reset" onClick={reset}>
+                Reset
+            </button>
         </div>
     );
 };

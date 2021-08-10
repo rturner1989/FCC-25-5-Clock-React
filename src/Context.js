@@ -11,7 +11,7 @@ const AppProvider = ({ children }) => {
     const increment = (id) => {
         if (!startStop) {
             if (id === "break-increment") {
-                if (breakLength <= 60) {
+                if (breakLength < 60) {
                     setBreakLength((prev) => prev + 1);
                 }
             } else if (id === "session-increment") {
@@ -24,11 +24,11 @@ const AppProvider = ({ children }) => {
     const decrement = (id) => {
         if (!startStop) {
             if (id === "break-decrement") {
-                if (breakLength > 0) {
+                if (breakLength > 1) {
                     setBreakLength((prev) => prev - 1);
                 }
             } else if (id === "session-decrement") {
-                if (sessionLength > 0) {
+                if (sessionLength > 1) {
                     setSessionLength((prev) => prev - 1);
                 }
             }
@@ -45,6 +45,12 @@ const AppProvider = ({ children }) => {
         seconds = seconds < 10 ? "0" + seconds : seconds;
         minutes = minutes < 10 ? "0" + minutes : minutes;
         return minutes + ":" + seconds;
+    };
+
+    const reset = () => {
+        setStartStop(false);
+        setBreakLength(5);
+        setSessionLength(25);
     };
 
     useEffect(() => {
@@ -76,6 +82,7 @@ const AppProvider = ({ children }) => {
                 decrement,
                 clockify,
                 handleStartStop,
+                reset,
             }}
         >
             {children}
