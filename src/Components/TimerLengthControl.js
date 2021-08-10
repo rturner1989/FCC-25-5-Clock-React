@@ -22,7 +22,8 @@ const TimerLengthControl = ({
                     id={decId}
                     onClick={() => decrement(decId)}
                 >
-                    <FaArrowDown />
+                    <span className="label-hidden">Decrement Length</span>
+                    <FaArrowDown aria-hidden={true} focusable={false} />
                 </button>
                 <p className="decinc-btn-child" id={lengthId}>
                     {length}
@@ -32,7 +33,8 @@ const TimerLengthControl = ({
                     id={incId}
                     onClick={() => increment(incId)}
                 >
-                    <FaArrowUp />
+                    <span className="label-hidden">Increment Length</span>
+                    <FaArrowUp aria-hidden={true} focusable={false} />
                 </button>
             </div>
         </div>

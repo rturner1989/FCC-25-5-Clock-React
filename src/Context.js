@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+import { CgPlayButtonR, CgPlayPauseR } from "react-icons/cg";
 
 const AppContext = React.createContext();
 
@@ -33,6 +34,14 @@ const AppProvider = ({ children }) => {
                     setSessionLength((prev) => prev - 1);
                 }
             }
+        }
+    };
+
+    const toggle = () => {
+        if (startStop) {
+            return <CgPlayPauseR aria-hidden={true} focusable={false} />;
+        } else {
+            return <CgPlayButtonR aria-hidden={true} focusable={false} />;
         }
     };
 
@@ -86,6 +95,7 @@ const AppProvider = ({ children }) => {
                 decrement,
                 handleStartStop,
                 reset,
+                toggle,
             }}
         >
             {children}
