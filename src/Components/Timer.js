@@ -3,13 +3,23 @@ import { useGlobalContext } from "../Context";
 import TimerControl from "./TimerControl";
 
 const Timer = () => {
-    const { clockify, label } = useGlobalContext();
+    const { breakTimer, sessionTimer } = useGlobalContext();
+
+    const clockify = () => {
+        const timer = sessionTimer > 0 ? sessionTimer : breakTimer;
+        let minutes = Math.floor(timer / 600);
+        let seconds = Math.floor((timer - minutes * 600) / 10);
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        return minutes + ":" + seconds;
+    };
+
     return (
-        <div id="timer-container">
-            <h3 id="timer-label">{label()}</h3>
+        <section id="timer-container">
+            <h3 id="timer-label">{sessionTimer > 0 ? "Session" : "Break"}</h3>
             <p id="time-left">{clockify()}</p>
             <TimerControl />
-        </div>
+        </section>
     );
 };
 

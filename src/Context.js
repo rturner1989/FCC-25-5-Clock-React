@@ -40,52 +40,37 @@ const AppProvider = ({ children }) => {
         setStartStop(!startStop);
     };
 
-    const clockify = () => {
-        const timer = sessionTimer > 0 ? sessionTimer : breakTimer;
-        let minutes = Math.floor(timer / 60);
-        let seconds = timer - minutes * 60;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        return minutes + ":" + seconds;
-    };
-
-    const label = () => {
-        return sessionTimer > 0 ? "session" : "break";
-    };
-
     const reset = () => {
         setStartStop(false);
         setBreakLength(5);
         setSessionLength(25);
-        setSessionTimer(sessionLength * 60);
+        setSessionTimer(sessionLength * 600);
     };
 
     useEffect(() => {
         if (startStop) {
+            let time = null;
             if (sessionTimer > 0) {
-                const time = setInterval(() => {
+                time = setInterval(() => {
                     setSessionTimer((timer) => timer - 1);
-                }, 1000);
-                return () => {
-                    clearInterval(time);
-                };
+                }, 100);
             } else if (breakTimer === 0) {
-                setSessionTimer(sessionLength * 60);
-                setBreakTimer(breakLength * 60);
+                setSessionTimer(sessionLength * 600);
+                setBreakTimer(breakLength * 600);
             } else if (sessionTimer === 0) {
-                const time = setInterval(() => {
+                time = setInterval(() => {
                     setBreakTimer((timer) => timer - 1);
-                }, 1000);
-                return () => {
-                    clearInterval(time);
-                };
+                }, 100);
             }
+            return () => {
+                clearInterval(time);
+            };
         }
     }, [breakTimer, sessionTimer, startStop]);
 
     useEffect(() => {
-        setSessionTimer(sessionLength * 60);
-        setBreakTimer(breakLength * 60);
+        setSessionTimer(sessionLength * 600);
+        setBreakTimer(breakLength * 600);
     }, [breakLength, sessionLength]);
 
     return (
@@ -94,12 +79,11 @@ const AppProvider = ({ children }) => {
                 breakLength,
                 sessionLength,
                 sessionTimer,
+                breakTimer,
                 setBreakLength,
                 setSessionLength,
                 increment,
                 decrement,
-                clockify,
-                label,
                 handleStartStop,
                 reset,
             }}
