@@ -5,6 +5,7 @@ import Timer from "./Components/Timer";
 
 const App = () => {
     const { breakLength, sessionLength } = useGlobalContext();
+
     return (
         <div id="app-container">
             <h1>25 + 5 Clock</h1>
