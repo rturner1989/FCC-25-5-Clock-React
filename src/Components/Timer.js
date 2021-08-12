@@ -16,8 +16,12 @@ const Timer = () => {
 
     return (
         <section id="timer-container">
-            <h3 id="timer-label">{!isTimerRunning ? "Session" : "Break"}</h3>
-            <p id="time-left">{clockify()}</p>
+            <div id="timer-display-container">
+                <h3 id="timer-label">
+                    {!isTimerRunning ? "Session" : "Break"}
+                </h3>
+                <p id="time-left">{clockify()}</p>
+            </div>
             <TimerControl />
         </section>
     );

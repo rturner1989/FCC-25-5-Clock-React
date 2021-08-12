@@ -9,6 +9,7 @@ const AppProvider = ({ children }) => {
     const [sessionTimer, setSessionTimer] = useState();
     const [startStop, setStartStop] = useState(false);
     const [isTimerRunning, setIsTimerRunning] = useState(false);
+    // const [mouseFunction, setMouseFunction] = useState(null);
 
     const increment = (id) => {
         if (!startStop) {
@@ -44,6 +45,19 @@ const AppProvider = ({ children }) => {
             setStartStop(true);
         }
     };
+
+    // const decreaseOnMouseDown = () => {
+    //     setMouseFunction(
+    //         setInterval(() => {
+    //             setSessionLength((prev) => prev - 1);
+    //         }, 100)
+    //     );
+    // };
+
+    // const clearOnMouseDown = () => {
+    //     clearInterval(mouseFunction);
+    //     setMouseFunction(null);
+    // };
 
     const reset = () => {
         setStartStop(false);
@@ -97,6 +111,8 @@ const AppProvider = ({ children }) => {
                 decrement,
                 handleStartStop,
                 reset,
+                // decreaseOnMouseDown,
+                // clearOnMouseDown,
             }}
         >
             {children}

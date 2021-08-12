@@ -10,7 +10,8 @@ const TimerLengthControl = ({
     lengthId,
     length,
 }) => {
-    const { decrement, increment } = useGlobalContext();
+    const { decrement, increment, decreaseOnMouseDown, clearOnMouseDown } =
+        useGlobalContext();
     return (
         <div className="length-controller">
             <h3 className="length-title" id={titleId}>
@@ -21,11 +22,13 @@ const TimerLengthControl = ({
                     className="decinc-btn-child"
                     id={decId}
                     onClick={() => decrement(decId)}
+                    onMouseDown={decreaseOnMouseDown}
+                    onMouseUp={clearOnMouseDown}
                 >
                     <span className="label-hidden">Decrement Length</span>
                     <FaArrowDown aria-hidden={true} focusable={false} />
                 </button>
-                <p className="decinc-btn-child" id={lengthId}>
+                <p className="length-id" id={lengthId}>
                     {length}
                 </p>
                 <button

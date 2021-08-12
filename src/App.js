@@ -8,7 +8,9 @@ const App = () => {
 
     return (
         <div id="app-container">
-            <h1>25 + 5 Clock</h1>
+            <section id="app-header">
+                <h1>25 + 5 Clock</h1>
+            </section>
             <section id="timer-length-controls">
                 <TimerLengthControl
                     titleId="break-label"

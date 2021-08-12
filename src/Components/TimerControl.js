@@ -17,8 +17,12 @@ const TimerControl = () => {
     }, [sessionTimer, breakTimer]);
 
     return (
-        <div>
-            <button id="start_stop" onClick={handleStartStop}>
+        <div id="timer-control-container">
+            <button
+                id="start_stop"
+                className="timer-btn-control"
+                onClick={handleStartStop}
+            >
                 <span className="label-hidden">Start/Stop</span>
                 {startStop ? (
                     <CgPlayPauseR aria-hidden={true} focusable={false} />
@@ -28,6 +32,7 @@ const TimerControl = () => {
             </button>
             <button
                 id="reset"
+                className="timer-btn-control"
                 onClick={() => {
                     audioRef.current.pause();
                     audioRef.current.currentTime = 0;
