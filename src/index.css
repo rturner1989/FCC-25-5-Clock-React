@@ -81,7 +81,7 @@
 }
 .timer-btn-control {
     display: flex;
-    font-size: 2.5rem;
+    font-size: 3.5em;
     cursor: -moz-pointer;
     cursor: -webkit-pointer;
     cursor: pointer;
@@ -99,7 +99,11 @@
 }
 /* #break-decrement:hover,
 #session-decrement:hover {
-    font-size: 2.1rem;
+    transform: translateY(5px);
+}
+#break-increment:hover,
+#session-increment:hover {
+    transform: translateY(-5px);
 } */
 .length-id {
     font-size: 3rem;
