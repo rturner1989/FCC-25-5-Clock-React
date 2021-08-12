@@ -69,11 +69,9 @@
 #timer-label {
     font-size: 2em;
 }
-
 #time-left {
     font-size: 4rem;
 }
-
 #timer-control-container {
     display: flex;
     align-items: center;
@@ -91,6 +89,7 @@
     border: none;
 }
 .decinc-btn-child {
+    display: flex;
     font-size: 2rem;
     cursor: -moz-pointer;
     cursor: -webkit-pointer;
@@ -98,6 +97,10 @@
     background: none;
     border: none;
 }
+/* #break-decrement:hover,
+#session-decrement:hover {
+    font-size: 2.1rem;
+} */
 .length-id {
     font-size: 3rem;
 }

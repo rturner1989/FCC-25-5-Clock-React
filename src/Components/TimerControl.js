@@ -4,7 +4,7 @@ import { BsArrowRepeat } from "react-icons/bs";
 import { CgPlayButtonR, CgPlayPauseR } from "react-icons/cg";
 
 const TimerControl = () => {
-    const { handleStartStop, reset, sessionTimer, breakTimer, startStop } =
+    const { handleStartStop, reset, sessionTimer, breakTimer, isTimerRunning } =
         useGlobalContext();
 
     const audioRef = useRef(null);
@@ -24,7 +24,7 @@ const TimerControl = () => {
                 onClick={handleStartStop}
             >
                 <span className="label-hidden">Start/Stop</span>
-                {startStop ? (
+                {isTimerRunning ? (
                     <CgPlayPauseR aria-hidden={true} focusable={false} />
                 ) : (
                     <CgPlayButtonR aria-hidden={true} focusable={false} />
