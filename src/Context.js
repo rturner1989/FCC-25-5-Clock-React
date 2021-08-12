@@ -8,6 +8,7 @@ const AppProvider = ({ children }) => {
     const [breakTimer, setBreakTimer] = useState();
     const [sessionTimer, setSessionTimer] = useState();
     const [startStop, setStartStop] = useState(false);
+    const [isTimerRunning, setIsTimerRunning] = useState(false);
 
     const increment = (id) => {
         if (!startStop) {
@@ -41,7 +42,6 @@ const AppProvider = ({ children }) => {
             setStartStop(false);
         } else {
             setStartStop(true);
-            // setSessionTimer((timer) => timer - 1);
         }
     };
 
@@ -50,32 +50,33 @@ const AppProvider = ({ children }) => {
         setBreakLength(5);
         setSessionLength(25);
         setSessionTimer(sessionLength * 60);
+        setBreakTimer(breakLength * 60);
+        setIsTimerRunning(false);
     };
 
     useEffect(() => {
         if (startStop) {
             let time = null;
-            if (sessionTimer >= 0) {
+            if (sessionTimer >= 0 && !isTimerRunning) {
                 time = setTimeout(() => {
                     setSessionTimer((timer) => timer - 1);
-                    breakTimer <= 0 && setBreakTimer(breakLength * 60);
+                    setBreakTimer(breakLength * 60);
                 }, 1000);
-            } else if (breakTimer >= 0) {
+            } else if (breakTimer >= 0 && isTimerRunning) {
                 time = setTimeout(() => {
                     setBreakTimer((timer) => timer - 1);
+                    setSessionTimer(sessionLength * 60);
                 }, 1000);
-            } else {
-                setSessionTimer(sessionLength * 60);
+            } else if (sessionTimer <= 0) {
+                setIsTimerRunning(true);
+            } else if (breakTimer <= 0) {
+                setIsTimerRunning(false);
             }
-            // } else {
-            //     setSessionTimer(sessionLength * 60);
-            //     setBreakTimer(breakLength * 60);
-            // }
             return () => {
                 clearTimeout(time);
             };
         }
-    }, [breakTimer, sessionTimer, startStop]);
+    }, [breakTimer, sessionTimer, startStop, isTimerRunning]);
 
     useEffect(() => {
         setSessionTimer(sessionLength * 60);
@@ -89,6 +90,7 @@ const AppProvider = ({ children }) => {
                 sessionLength,
                 sessionTimer,
                 breakTimer,
+                isTimerRunning,
                 setBreakLength,
                 setSessionLength,
                 increment,
