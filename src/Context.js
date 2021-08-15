@@ -10,7 +10,7 @@ const AppProvider = ({ children }) => {
     const [sessionTimer, setSessionTimer] = useState();
     const [startStop, setStartStop] = useState(false);
     const [isTimerRunning, setIsTimerRunning] = useState(false);
-    // const [mouseFunction, setMouseFunction] = useState(null);
+    const [mouseFunction, setMouseFunction] = useState(null);
 
     const increment = (id) => {
         if (!startStop) {
@@ -39,6 +39,55 @@ const AppProvider = ({ children }) => {
         }
     };
 
+    const increaseOnMouseDown = (id) => {
+        if (!startStop) {
+            if (id === "break-increment") {
+                if (breakLength < 60) {
+                    setMouseFunction(
+                        setInterval(() => {
+                            setBreakLength((prev) => prev + 1);
+                        }, 100)
+                    );
+                }
+            } else if (id === "session-increment") {
+                if (sessionLength < 60) {
+                    setMouseFunction(
+                        setInterval(() => {
+                            setSessionLength((prev) => prev + 1);
+                        }, 100)
+                    );
+                }
+            }
+        }
+    };
+
+    const decreaseOnMouseDown = (id) => {
+        if (!startStop) {
+            if (id === "break-decrement") {
+                if (breakLength > 1) {
+                    setMouseFunction(
+                        setInterval(() => {
+                            setBreakLength((prev) => prev - 1);
+                        }, 100)
+                    );
+                }
+            } else if (id === "session-decrement") {
+                if (sessionLength > 1) {
+                    setMouseFunction(
+                        setInterval(() => {
+                            setSessionLength((prev) => prev - 1);
+                        }, 100)
+                    );
+                }
+            }
+        }
+    };
+
+    const clearOnMouseDown = () => {
+        clearInterval(mouseFunction);
+        setMouseFunction(null);
+    };
+
     const handleStartStop = () => {
         if (startStop) {
             setStartStop(false);
@@ -46,19 +95,6 @@ const AppProvider = ({ children }) => {
             setStartStop(true);
         }
     };
-
-    // const decreaseOnMouseDown = () => {
-    //     setMouseFunction(
-    //         setInterval(() => {
-    //             setSessionLength((prev) => prev - 1);
-    //         }, 100)
-    //     );
-    // };
-
-    // const clearOnMouseDown = () => {
-    //     clearInterval(mouseFunction);
-    //     setMouseFunction(null);
-    // };
 
     const reset = () => {
         setStartStop(false);
@@ -113,8 +149,9 @@ const AppProvider = ({ children }) => {
                 decrement,
                 handleStartStop,
                 reset,
-                // decreaseOnMouseDown,
-                // clearOnMouseDown,
+                increaseOnMouseDown,
+                decreaseOnMouseDown,
+                clearOnMouseDown,
             }}
         >
             {children}
