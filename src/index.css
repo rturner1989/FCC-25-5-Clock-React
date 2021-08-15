@@ -60,11 +60,35 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: black 5px dashed;
-    border-radius: 100%;
+    border-radius: 50%;
     flex-grow: 3;
-    width: 300px;
-    height: 100px;
+    width: 45%;
+}
+#timer-div {
+    position: absolute;
+    background: transparent;
+    border-radius: 50%;
+    width: 280px;
+    height: 280px;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
+    transform: scale(1);
+    animation: pulse 1s infinite;
+    animation-delay: 1s;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.98);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+    }
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+    }
+    100% {
+        transform: scale(0.98);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    }
 }
 #timer-label {
     font-size: 2em;
@@ -88,6 +112,15 @@
     background: none;
     border: none;
 }
+#reset {
+    transition: 0.5s;
+    transform: rotate(0deg);
+}
+
+#reset:hover {
+    transform: rotate(180deg);
+}
+
 .decinc-btn-child {
     display: flex;
     font-size: 2rem;
@@ -97,14 +130,6 @@
     background: none;
     border: none;
 }
-/* #break-decrement:hover,
-#session-decrement:hover {
-    transform: translateY(5px);
-}
-#break-increment:hover,
-#session-increment:hover {
-    transform: translateY(-5px);
-} */
 .length-id {
     font-size: 3rem;
 }

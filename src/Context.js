@@ -55,6 +55,14 @@ const AppProvider = ({ children }) => {
         }
     };
 
+    const togglePulseEffect = (e) => {
+        if (startStop === true) {
+            return e.target.classList.add("timer-div");
+        } else {
+            return null;
+        }
+    };
+
     // const decreaseOnMouseDown = () => {
     //     setMouseFunction(
     //         setInterval(() => {
@@ -121,6 +129,8 @@ const AppProvider = ({ children }) => {
                 handleStartStop,
                 reset,
                 togglePlayPauseBtn,
+                togglePulseEffect,
+                startStop,
                 // decreaseOnMouseDown,
                 // clearOnMouseDown,
             }}

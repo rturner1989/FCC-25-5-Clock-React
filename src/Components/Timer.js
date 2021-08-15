@@ -3,7 +3,8 @@ import { useGlobalContext } from "../Context";
 import TimerControl from "./TimerControl";
 
 const Timer = () => {
-    const { breakTimer, sessionTimer, isTimerRunning } = useGlobalContext();
+    const { breakTimer, sessionTimer, isTimerRunning, startStop } =
+        useGlobalContext();
 
     const clockify = () => {
         const timer = !isTimerRunning ? sessionTimer : breakTimer;
@@ -21,6 +22,7 @@ const Timer = () => {
                     {!isTimerRunning ? "Session" : "Break"}
                 </h3>
                 <p id="time-left">{clockify()}</p>
+                <div id={startStop ? "timer-div" : ""}></div>
             </div>
             <TimerControl />
         </section>
