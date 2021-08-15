@@ -1,15 +1,11 @@
 import React, { useRef, useEffect } from "react";
 import { useGlobalContext } from "../Context";
-import { BsArrowRepeat } from "react-icons/bs";
+import { FaPlayCircle, FaPauseCircle } from "react-icons/fa";
+import { IoMdRefreshCircle } from "react-icons/io";
 
 const TimerControl = () => {
-    const {
-        handleStartStop,
-        reset,
-        sessionTimer,
-        breakTimer,
-        togglePlayPauseBtn,
-    } = useGlobalContext();
+    const { handleStartStop, reset, sessionTimer, breakTimer, startStop } =
+        useGlobalContext();
 
     const audioRef = useRef(null);
 
@@ -28,7 +24,11 @@ const TimerControl = () => {
                 onClick={handleStartStop}
             >
                 <span className="label-hidden">Start/Stop</span>
-                {togglePlayPauseBtn()}
+                {startStop ? (
+                    <FaPauseCircle aria-hidden={true} focusable={false} />
+                ) : (
+                    <FaPlayCircle aria-hidden={true} focusable={false} />
+                )}
             </button>
             <button
                 id="reset"
@@ -40,7 +40,11 @@ const TimerControl = () => {
                 }}
             >
                 <span className="label-hidden">Reset</span>
-                <BsArrowRepeat aria-hidden={true} focusable={false} />
+                <IoMdRefreshCircle
+                    className="reset-btn-icon"
+                    aria-hidden={true}
+                    focusable={false}
+                />
             </button>
             <audio
                 id="beep"

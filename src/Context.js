@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { CgPlayButtonR, CgPlayPauseR } from "react-icons/cg";
+import { FaPlayCircle, FaPauseCircle } from "react-icons/fa";
 
 const AppContext = React.createContext();
 
@@ -44,22 +44,6 @@ const AppProvider = ({ children }) => {
             setStartStop(false);
         } else {
             setStartStop(true);
-        }
-    };
-
-    const togglePlayPauseBtn = () => {
-        if (startStop === true) {
-            return <CgPlayPauseR aria-hidden={true} focusable={false} />;
-        } else {
-            return <CgPlayButtonR aria-hidden={true} focusable={false} />;
-        }
-    };
-
-    const togglePulseEffect = (e) => {
-        if (startStop === true) {
-            return e.target.classList.add("timer-div");
-        } else {
-            return null;
         }
     };
 
@@ -121,6 +105,7 @@ const AppProvider = ({ children }) => {
                 sessionLength,
                 sessionTimer,
                 breakTimer,
+                startStop,
                 isTimerRunning,
                 setBreakLength,
                 setSessionLength,
@@ -128,9 +113,6 @@ const AppProvider = ({ children }) => {
                 decrement,
                 handleStartStop,
                 reset,
-                togglePlayPauseBtn,
-                togglePulseEffect,
-                startStop,
                 // decreaseOnMouseDown,
                 // clearOnMouseDown,
             }}

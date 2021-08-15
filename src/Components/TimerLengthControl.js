@@ -1,5 +1,5 @@
 import React from "react";
-import { FaArrowDown, FaArrowUp } from "react-icons/fa";
+import { FaArrowCircleDown, FaArrowCircleUp } from "react-icons/fa";
 import { useGlobalContext } from "../Context";
 
 const TimerLengthControl = ({
@@ -18,27 +18,34 @@ const TimerLengthControl = ({
                 {title}
             </h3>
             <div className="decinc-btn-container">
-                <button
-                    className="decinc-btn-child"
-                    id={decId}
-                    onClick={() => decrement(decId)}
-                    onMouseDown={decreaseOnMouseDown}
-                    onMouseUp={clearOnMouseDown}
-                >
-                    <span className="label-hidden">Decrement Length</span>
-                    <FaArrowDown aria-hidden={true} focusable={false} />
-                </button>
+                <div className={decId}>
+                    <button
+                        className="decinc-btn-child"
+                        id={decId}
+                        onClick={() => decrement(decId)}
+                        onMouseDown={decreaseOnMouseDown}
+                        onMouseUp={clearOnMouseDown}
+                    >
+                        <span className="label-hidden">Decrement Length</span>
+                        <FaArrowCircleDown
+                            aria-hidden={true}
+                            focusable={false}
+                        />
+                    </button>
+                </div>
                 <p className="length-id" id={lengthId}>
                     {length}
                 </p>
-                <button
-                    className="decinc-btn-child"
-                    id={incId}
-                    onClick={() => increment(incId)}
-                >
-                    <span className="label-hidden">Increment Length</span>
-                    <FaArrowUp aria-hidden={true} focusable={false} />
-                </button>
+                <div className={incId}>
+                    <button
+                        className="decinc-btn-child"
+                        id={incId}
+                        onClick={() => increment(incId)}
+                    >
+                        <span className="label-hidden">Increment Length</span>
+                        <FaArrowCircleUp aria-hidden={true} focusable={false} />
+                    </button>
+                </div>
             </div>
         </div>
     );
