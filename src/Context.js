@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from "react";
-import { FaPlayCircle, FaPauseCircle } from "react-icons/fa";
 
 const AppContext = React.createContext();
 

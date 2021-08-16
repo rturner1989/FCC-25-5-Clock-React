@@ -177,3 +177,38 @@
     position: absolute;
     white-space: nowrap;
 }
+@media (max-width: 590px) {
+    /* Container */
+    #app-container {
+        width: 100vw;
+        max-width: 590px;
+        min-width: 400px;
+        height: 100vh;
+        max-height: 100vh;
+        min-height: 600px;
+    }
+    #app-header {
+        font-size: 2em;
+    }
+    /* Timer length Controls */
+    #timer-length-controls {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        width: 100%;
+    }
+    .length-title {
+        font-size: 1.8em;
+        width: 100%;
+    }
+    .length-controller {
+        width: 100%;
+    }
+    .decinc-btn-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        width: 100%;
+        height: 100%;
+    }
+}
