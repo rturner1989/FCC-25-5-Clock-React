@@ -71,7 +71,10 @@
     transform: scale(1.1);
 }
 .length-id {
+    display: flex;
+    justify-content: center;
     font-size: 3rem;
+    width: calc(2 * 3rem);
 }
 /* Timer Display */
 #timer-container {
@@ -177,7 +180,7 @@
     position: absolute;
     white-space: nowrap;
 }
-@media (max-width: 590px) {
+@media (max-width: 590px) and (max-height: 850px) {
     /* Container */
     #app-container {
         width: 90vw;
@@ -188,7 +191,7 @@
         min-height: 650px;
     }
     #app-header {
-        font-size: 2em;
+        font-size: 1.7em;
     }
     /* Timer length Controls */
     #timer-length-controls {

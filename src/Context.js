@@ -40,45 +40,21 @@ const AppProvider = ({ children }) => {
 
     const increaseOnMouseDown = (id) => {
         if (!startStop) {
-            if (id === "break-increment") {
-                if (breakLength < 60) {
-                    setMouseFunction(
-                        setInterval(() => {
-                            setBreakLength((prev) => prev + 1);
-                        }, 100)
-                    );
-                }
-            } else if (id === "session-increment") {
-                if (sessionLength < 60) {
-                    setMouseFunction(
-                        setInterval(() => {
-                            setSessionLength((prev) => prev + 1);
-                        }, 100)
-                    );
-                }
-            }
+            setMouseFunction(
+                setInterval(() => {
+                    increment(id);
+                }, 100)
+            );
         }
     };
 
     const decreaseOnMouseDown = (id) => {
         if (!startStop) {
-            if (id === "break-decrement") {
-                if (breakLength > 1) {
-                    setMouseFunction(
-                        setInterval(() => {
-                            setBreakLength((prev) => prev - 1);
-                        }, 100)
-                    );
-                }
-            } else if (id === "session-decrement") {
-                if (sessionLength > 1) {
-                    setMouseFunction(
-                        setInterval(() => {
-                            setSessionLength((prev) => prev - 1);
-                        }, 100)
-                    );
-                }
-            }
+            setMouseFunction(
+                setInterval(() => {
+                    decrement(id);
+                }, 100)
+            );
         }
     };
 
@@ -129,9 +105,32 @@ const AppProvider = ({ children }) => {
     }, [breakTimer, sessionTimer, startStop, isTimerRunning]);
 
     useEffect(() => {
+        if (sessionLength > 60) {
+            setSessionLength(60);
+        }
+        if (sessionLength < 1) {
+            setSessionLength(1);
+        }
+        if (breakLength > 60) {
+            setBreakLength(60);
+        }
+        if (breakLength < 1) {
+            setBreakLength(1);
+        }
         setSessionTimer(sessionLength * 60);
         setBreakTimer(breakLength * 60);
     }, [breakLength, sessionLength]);
+
+    // useEffect(() => {
+    //     if (mouseFunction !== null) {
+    //         setInterval(() => {
+    //             increment("session-increment");
+    //         }, 100);
+    //     }
+    //     return () => {
+    //         clearInterval(mouseFunction);
+    //     };
+    // });
 
     return (
         <AppContext.Provider

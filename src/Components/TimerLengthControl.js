@@ -27,9 +27,15 @@ const TimerLengthControl = ({
                     className="decinc-btn-child"
                     id={decId}
                     onClick={() => decrement(decId)}
-                    onMouseDown={() => decreaseOnMouseDown(decId)}
+                    onMouseDown={(e) => {
+                        if (e.button === 0) {
+                            decreaseOnMouseDown(decId);
+                        }
+                    }}
                     onMouseUp={clearOnMouseDown}
                     onMouseLeave={clearOnMouseDown}
+                    onTouchStart={(e) => decreaseOnMouseDown(decId)}
+                    onTouchEnd={clearOnMouseDown}
                 >
                     <span className="label-hidden">Decrement Length</span>
                     <FaArrowCircleDown aria-hidden={true} focusable={false} />
@@ -41,9 +47,15 @@ const TimerLengthControl = ({
                     className="decinc-btn-child"
                     id={incId}
                     onClick={() => increment(incId)}
-                    onMouseDown={() => increaseOnMouseDown(incId)}
+                    onMouseDown={(e) => {
+                        if (e.button === 0) {
+                            increaseOnMouseDown(incId);
+                        }
+                    }}
                     onMouseUp={clearOnMouseDown}
                     onMouseLeave={clearOnMouseDown}
+                    onTouchStart={(e) => increaseOnMouseDown(incId)}
+                    onTouchEnd={clearOnMouseDown}
                 >
                     <span className="label-hidden">Increment Length</span>
                     <FaArrowCircleUp aria-hidden={true} focusable={false} />
